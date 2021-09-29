@@ -4,7 +4,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import {Picker} from '@react-native-picker/picker';
 import { Formik } from 'formik'
 import * as yup from 'yup';
-import Firebase from '../config/firebaseConfig'
+import auth from '@react-native-firebase/auth'
+//use firbase wrapper
+//auth
+
 import Constants from 'expo-constants'; 
 
 const reviewSchema = yup.object({
@@ -24,7 +27,7 @@ export default function Signup({navigation}) {
   // const [uid, setUID] = useState(null)
 
   const createUser = async (values) => {
-    Firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
+    auth().createUserWithEmailAndPassword(values.email, values.password)
     .then((userCredential) => {
       // Signed in 
       var user = userCredential.user;

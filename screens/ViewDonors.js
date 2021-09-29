@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
-import Firebase from '../config/firebaseConfig'
+import database from '@react-native-firebase/database'
+//database
 
 export default function ViewDonors({navigation,route}) {
     const currentUser = route.params
@@ -9,7 +10,7 @@ export default function ViewDonors({navigation,route}) {
 
   useEffect(() => {
     // Fetching Doctor Data
-    const userData =  Firebase.database().ref('users');
+    const userData =  database().ref('users');
     userData.on('value',data => {
     const rawData = Object.values(data.val())
     var filterData = rawData.filter(user => user.donor == true)    

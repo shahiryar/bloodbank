@@ -4,7 +4,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import uuid from 'uuid'
-import Firebase from '../config/firebaseConfig'
+import storage from '@react-native-firebase/storage'
+import database from '@react-native-firebase/database'
+//database ref
+//storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function UploadPicture({navigation}) {
@@ -40,8 +43,7 @@ export default function UploadPicture({navigation}) {
       xhr.send(null);
     });
 
-    const ref = Firebase
-      .storage()
+    const ref = storage()
       .ref()
       .child(uuid.v4());
     const snapshot = await ref.put(blob);
@@ -62,7 +64,7 @@ export default function UploadPicture({navigation}) {
     var obj2 = params
     var user = {...obj2, ...{'imgURI' : uploadUrl}}
     // console.log(user)
-    Firebase.database().ref('users').child(user.uid).set(user);
+    database().ref('users').child(user.uid).set(user);
     setLoading(false);
     Alert.alert('Congratulations','Account Created Successfully', [
       {text: 'Finish', onPress: () => storeData(user.uid)}

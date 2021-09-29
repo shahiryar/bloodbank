@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants'; 
-import Firebase from '../config/firebaseConfig'
+import database from '@react-native-firebase/database'
 import Header from '../components/Header'
 import Profile from '../components/Profile'
 import FindDonor from '../components/FindDonor'
@@ -18,7 +18,8 @@ export default function Home({navigation}) {
         const value = await AsyncStorage.getItem('user')
         if(value !== null) {
           console.log('data',value)
-          const userData =  Firebase.database().ref('users').child(value);
+          //Firebase database
+          const userData =  database().ref('users').child(value);
           userData.on('value',data => {
           setUser(data.val())
           // console.log('Data Recieved Hogaya', user)

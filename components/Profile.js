@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Switch, TouchableOpacity } from 'react-native';
-import Firebase from '../config/firebaseConfig'
+import database from '@react-native-firebase/database'
 
 export default function Profile(props) {
+    //const {city, medicalCondition, bloodGroup, username, userId, donor} = props
     const {city, medicalCondition, bloodGroup, username, userId, donor} = props
     const isEnabled = donor;
     const donorMode = () => {
         // setIsEnabled(previousState => !previousState);
-        Firebase.database().ref('users').child(userId).update({
+        database().ref('users').child(userId).update({
             donor: !donor,
         })
         console.log(isEnabled)
@@ -16,7 +17,6 @@ export default function Profile(props) {
 
   return (
       <>
-
     <View style={styles.container}>
         <View style={{flexDirection: 'row', flex:1, justifyContent: 'space-between'}}>
             <Text style={styles.text}>

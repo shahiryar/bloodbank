@@ -1,10 +1,10 @@
 import React,{useState} from 'react';
 import { StyleSheet, Text, View, Button, Image, TextInput, ScrollView } from 'react-native';
 import { Formik } from 'formik'
-import Firebase from '../config/firebaseConfig'
 import * as yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import auth from '@react-native-firebase/auth'
+//Firebase auth
 const reviewSchema = yup.object({
   email: yup.string().email('Please Enter Valid Email').required('Email is Required'),
   password: yup.string().required('Password is Required'),
@@ -25,7 +25,7 @@ export default function Login({navigation}) {
   }
 
   const LoginUser = async (values) => {
-    Firebase.auth().signInWithEmailAndPassword(values.email, values.password)
+    auth().signInWithEmailAndPassword(values.email, values.password)
     .then((userCredential) => {
       // Signed in
       var user = userCredential.user;
